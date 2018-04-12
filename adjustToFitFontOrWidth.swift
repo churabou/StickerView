@@ -11,38 +11,38 @@ import UIKit
 
 protocol adjustFontSizeToFillRectProtocol {
     
-    func adjustFontSizeToFillRect(_ newBounds: CGRect, view: JLStickerLabelView, labelView: JLAttributedTextView) -> Void
+    func adjustFontSizeToFillRect(_ newBounds: CGRect, labelView: JLAttributedTextView) -> Void
     func adjustsWidthToFillItsContens(_ view: JLStickerLabelView, labelView: JLAttributedTextView) -> Void
     
 }
 
 extension adjustFontSizeToFillRectProtocol {
-    func adjustFontSizeToFillRect(_ newBounds: CGRect, view: JLStickerLabelView, labelView: JLAttributedTextView) {
+    func adjustFontSizeToFillRect(_ newBounds: CGRect, labelView: JLAttributedTextView) {
         var mid: CGFloat = 0.0
         var stickerMaximumFontSize: CGFloat = 200.0
         var stickerMinimumFontSize: CGFloat = 15.0
         var difference: CGFloat = 0.0
         
-        var tempFont = UIFont(name: view.labelTextView.fontName, size: view.labelTextView.fontSize)
+        var tempFont = UIFont(name: labelView.fontName, size: labelView.fontSize)
         var copyTextAttributes = labelView.textAttributes
         copyTextAttributes[NSAttributedStringKey.font] = tempFont
-        var attributedText = NSAttributedString(string: view.labelTextView.text, attributes: copyTextAttributes)
+        var attributedText = NSAttributedString(string: labelView.text, attributes: copyTextAttributes)
         
         while stickerMinimumFontSize <= stickerMaximumFontSize {
             mid = stickerMinimumFontSize + (stickerMaximumFontSize - stickerMinimumFontSize) / 2
-            tempFont = UIFont(name: view.labelTextView.fontName, size: CGFloat(mid))!
+            tempFont = UIFont(name: labelView.fontName, size: CGFloat(mid))!
             copyTextAttributes[NSAttributedStringKey.font] = tempFont
-            attributedText = NSAttributedString(string: view.labelTextView.text, attributes: copyTextAttributes)
+            attributedText = NSAttributedString(string: labelView.text, attributes: copyTextAttributes)
             
             difference = newBounds.height - attributedText.boundingRect(with: CGSize(width: newBounds.width - 24, height: CGFloat.greatestFiniteMagnitude), options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).height
             
             if (mid == stickerMinimumFontSize || mid == stickerMaximumFontSize) {
                 if (difference < 0) {
-                    view.labelTextView.fontSize = mid - 1
+                    labelView.fontSize = mid - 1
                     return
                 }
                 
-                view.labelTextView.fontSize = mid
+                labelView.fontSize = mid
                 return
             }
             
@@ -51,12 +51,12 @@ extension adjustFontSizeToFillRectProtocol {
             }else if (difference > 0) {
                 stickerMinimumFontSize = mid + 1
             }else {
-                view.labelTextView.fontSize = mid
+                labelView.fontSize = mid
                 return
             }
         }
         
-        view.labelTextView.fontSize = mid
+        labelView.fontSize = mid
         return
     }
     

@@ -160,7 +160,7 @@ public class JLStickerLabelView: UIView {
     func setup(defaultText: String?) {
         self.globalInset = 19
         
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = UIColor.green
         self.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.border?.strokeColor = UIColor(red: 33, green: 45, blue: 59, alpha: 1).cgColor
         
@@ -348,10 +348,10 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
                 if scale < 1 && labelTextView.fontSize <= 9 {
                     
                 }else {
-                    self.adjustFontSizeToFillRect(scaleRect, view: self, labelView: labelTextView)
+                    self.adjustFontSizeToFillRect(scaleRect, labelView: labelTextView)
                     self.bounds = scaleRect
-                    self.adjustsWidthToFillItsContens(self, labelView: labelTextView)
-                    self.refresh()
+//                    self.adjustsWidthToFillItsContens(self, labelView: labelTextView)
+//                    self.refresh()
                 }
             }
             
