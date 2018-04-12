@@ -45,8 +45,8 @@ public class JLStickerLabelView: UIView {
     
     internal var globalInset: CGFloat?
     
-    internal var initialBounds: CGRect?
-    internal var initialDistance: CGFloat?
+    internal var initialBounds: CGRect = .zero
+    internal var initialDistance: CGFloat = 0
     
     internal var beginningPoint: CGPoint?
     internal var beginningCenter: CGPoint?
@@ -337,8 +337,10 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             self.layoutIfNeeded()
             
             //Finding scale between current touchPoint and previous touchPoint
-            let scale = sqrtf(Float(CalculateFunctions.CGpointGetDistance(center, point2: touchLocation)) / Float(initialDistance!))
-            let scaleRect = CalculateFunctions.CGRectScale(initialBounds!, wScale: CGFloat(scale), hScale: CGFloat(scale))
+            let scale = sqrtf(Float(CGPoint.distance(center, point2: touchLocation) / initialDistance))
+            
+
+            let scaleRect = CalculateFunctions.CGRectScale(initialBounds, wScale: CGFloat(scale), hScale: CGFloat(scale))
             
             if scaleRect.size.width >= (1 + globalInset! * 2) && scaleRect.size.height >= (1 + globalInset! * 2) && self.labelTextView.text != "" {
                 //  if fontSize < 100 || CGRectGetWidth(scaleRect) < CGRectGetWidth(self.bounds) {
