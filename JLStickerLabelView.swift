@@ -350,7 +350,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
                 }else {
                     self.adjustFontSizeToFillRect(scaleRect, labelView: labelTextView)
                     self.bounds = scaleRect
-//                    self.adjustsWidthToFillItsContens(self, labelView: labelTextView)
+                    self.adjustsWidthToFillItsContens(self, labelView: labelTextView)
 //                    self.refresh()
                 }
             }
