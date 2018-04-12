@@ -51,7 +51,7 @@ public class JLStickerLabelView: UIView {
     internal var beginningPoint: CGPoint?
     internal var beginningCenter: CGPoint?
     
-    internal var touchLocation: CGPoint?
+    internal var touchLocation: CGPoint = .zero
     
     internal var deltaAngle: CGFloat?
     internal var beginBounds: CGRect?
@@ -310,16 +310,18 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
         }
     }
     
+    
+    //簿記
     @objc func rotateViewPanGesture(_ recognizer: UIPanGestureRecognizer) {
         touchLocation = recognizer.location(in: self.superview)
         
-        let center = CalculateFunctions.CGRectGetCenter(self.frame)
+        let center = frame.center
         
         switch recognizer.state {
         case .began:
-            deltaAngle = atan2(touchLocation!.y - center.y, touchLocation!.x - center.x) - CalculateFunctions.CGAffineTrasformGetAngle(self.transform)
+            deltaAngle = atan2(touchLocation.y - center.y, touchLocation.x - center.x) - transform.rotateAngle
             initialBounds = self.bounds
-            initialDistance = CalculateFunctions.CGpointGetDistance(center, point2: touchLocation!)
+            initialDistance = CalculateFunctions.CGpointGetDistance(center, point2: touchLocation)
             
             if let delegate: JLStickerLabelViewDelegate = delegate {
                 if delegate.responds(to: #selector(JLStickerLabelViewDelegate.labelViewDidBeginEditing(_:))) {
@@ -328,14 +330,14 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             }
             
         case .changed:
-            let ang = atan2(touchLocation!.y - center.y, touchLocation!.x - center.x)
+            let ang = atan2(touchLocation.y - center.y, touchLocation.x - center.x)
             
             let angleDiff = deltaAngle! - ang
             self.transform = CGAffineTransform(rotationAngle: -angleDiff)
             self.layoutIfNeeded()
             
             //Finding scale between current touchPoint and previous touchPoint
-            let scale = sqrtf(Float(CalculateFunctions.CGpointGetDistance(center, point2: touchLocation!)) / Float(initialDistance!))
+            let scale = sqrtf(Float(CalculateFunctions.CGpointGetDistance(center, point2: touchLocation)) / Float(initialDistance!))
             let scaleRect = CalculateFunctions.CGRectScale(initialBounds!, wScale: CGFloat(scale), hScale: CGFloat(scale))
             
             if scaleRect.size.width >= (1 + globalInset! * 2) && scaleRect.size.height >= (1 + globalInset! * 2) && self.labelTextView.text != "" {
@@ -497,8 +499,8 @@ extension JLStickerLabelView {
     
     internal func estimatedCenter() -> CGPoint{
         let newCenter: CGPoint!
-        var newCenterX = beginningCenter!.x + (touchLocation!.x - beginningPoint!.x)
-        var newCenterY = beginningCenter!.y + (touchLocation!.y - beginningPoint!.y)
+        var newCenterX = beginningCenter!.x + (touchLocation.x - beginningPoint!.x)
+        var newCenterY = beginningCenter!.y + (touchLocation.y - beginningPoint!.y)
         
         if (enableMoveRestriction) {
             if (!(newCenterX - 0.5 * self.frame.width > 0 &&
