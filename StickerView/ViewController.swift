@@ -8,24 +8,32 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, adjustFontSizeToFillRectProtocol {
+    
     
     var stickerView = JLStickerImageView()
     
+    let label = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        stickerView.frame = view.frame
-        stickerView.backgroundColor = .orange
-        view.addSubview(stickerView)
+        let labelFrame = CGRect(x: view.bounds.midX - CGFloat(arc4random()).truncatingRemainder(dividingBy: 20),
+                                y: view.bounds.midY - CGFloat(arc4random()).truncatingRemainder(dividingBy: 20),
+                                width: 60, height: 50)
+        let labelView = JLStickerLabelView(frame: labelFrame, defaultText: "defaultText")
         
-        stickerView.addLabel(defaultText: "有り難うございました")
-        // Do any additional setup after loading the view, typically from a nib.
+        labelView.showsContentShadow = false
+        //labelView.enableMoveRestriction = false
+        labelView.borderColor = UIColor.red
+        labelView.labelTextView.fontName = "Baskerville-BoldItalic"
+        view.addSubview(labelView)
+     
+        adjustsWidthToFillItsContens(labelView, labelView: labelView.labelTextView)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 }
+
