@@ -53,7 +53,21 @@ public class JLStickerLabelView: UIView {
     internal var deltaAngle: CGFloat?
     internal var beginBounds: CGRect?
     
-    public var labelTextView: JLAttributedTextView!
+    public lazy var labelTextView: JLAttributedTextView = {
+        let v = JLAttributedTextView(frame: self.bounds.insetBy(dx: globalInset!, dy: globalInset!))
+        v.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        v.clipsToBounds = true
+        v.delegate = self
+        v.backgroundColor = UIColor.clear
+        v.tintColor = UIColor(red: 33, green: 45, blue: 59, alpha: 1)
+        v.isScrollEnabled = false
+        v.isSelectable = true
+        v.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        v.layer.borderWidth = 2
+        v.layer.borderColor = UIColor.orange.cgColor
+        return v
+    }()
+    
     public lazy var rotateView: UIImageView = {
         let v = UIImageView(frame: CGRect(x: self.bounds.size.width - globalInset! * 2,
                                           y: self.bounds.size.height - globalInset! * 2,
@@ -119,12 +133,12 @@ public class JLStickerLabelView: UIView {
     
     init() {
         super.init(frame: CGRect.zero)
-        setup(defaultText: nil)
+        setup(defaultText: "")
         adjustsWidthToFillItsContens(self, labelView: labelTextView)
         
     }
     
-    init(frame: CGRect, defaultText: String?) {
+    init(frame: CGRect, defaultText: String) {
         super.init(frame: frame)
         
         if frame.size.width < 25 {
@@ -141,13 +155,13 @@ public class JLStickerLabelView: UIView {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup(defaultText: nil)
+        setup(defaultText: "")
         adjustsWidthToFillItsContens(self, labelView: labelTextView)
         
     }
     
     
-    func setup(defaultText: String?) {
+    func setup(defaultText: String) {
         
         
         layer.borderColor = UIColor.red.cgColor
@@ -158,14 +172,10 @@ public class JLStickerLabelView: UIView {
         self.backgroundColor = UIColor.green
         self.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         
-        if let defaultText = defaultText {
-            self.setupLabelTextView(defaultText: defaultText)
-        } else {
-            self.setupLabelTextView()
-        }
-
         
-        self.insertSubview(labelTextView!, at: 0)
+        labelTextView.text = defaultText
+        
+        self.insertSubview(labelTextView, at: 0)
         
         //setupCloseAndRotateView()
         
@@ -185,7 +195,7 @@ public class JLStickerLabelView: UIView {
         self.showsContentShadow = true
         
         self.showEditingHandles()
-        self.labelTextView?.becomeFirstResponder()
+        self.labelTextView.becomeFirstResponder()
         
     }
     
@@ -355,18 +365,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
 extension JLStickerLabelView {
     func setupLabelTextView(defaultText: String = "Tap to edit") {
 
-        labelTextView = JLAttributedTextView(frame: self.bounds.insetBy(dx: globalInset!, dy: globalInset!))
-        labelTextView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        labelTextView?.clipsToBounds = true
-        labelTextView?.delegate = self
-        labelTextView?.backgroundColor = UIColor.clear
-        labelTextView?.tintColor = UIColor(red: 33, green: 45, blue: 59, alpha: 1)
-        labelTextView?.isScrollEnabled = false
-        labelTextView.isSelectable = true
-        labelTextView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0)
-        labelTextView?.text = defaultText
-        labelTextView?.layer.borderWidth = 2
-        labelTextView?.layer.borderColor = UIColor.orange.cgColor
+
     }
 }
 
