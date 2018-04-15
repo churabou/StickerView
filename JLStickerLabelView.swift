@@ -361,16 +361,6 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
 }
 
 //MARK: -
-//MARK: setup
-extension JLStickerLabelView {
-    func setupLabelTextView(defaultText: String = "Tap to edit") {
-
-
-    }
-}
-
-
-//MARK: -
 //MARK: Help funcitons
 extension JLStickerLabelView {
     
