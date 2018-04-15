@@ -10,8 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, adjustFontSizeToFillRectProtocol {
     
-    
-    var stickerView = JLStickerImageView()
+
     
     let label = UILabel()
     override func viewDidLoad() {

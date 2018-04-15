@@ -41,7 +41,6 @@ public class JLStickerLabelView: UIView {
     
     internal var lastTouchedView: JLStickerLabelView?
     
-    var delegate: JLStickerLabelViewDelegate?
     
     internal var globalInset: CGFloat?
     
@@ -226,12 +225,7 @@ extension JLStickerLabelView: UITextViewDelegate {
     }
     
     public func textViewDidBeginEditing(_ textView: UITextView) {
-        
-        if let delegate: JLStickerLabelViewDelegate = delegate {
-            if delegate.responds(to: #selector(JLStickerLabelViewDelegate.labelViewDidStartEditing(_:))) {
-                delegate.labelViewDidStartEditing!(self)
-            }
-        }
+        //labelViewDidStartEditing
     }
     
     public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -268,31 +262,22 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
     @objc func contentTapped(_ recognizer: UITapGestureRecognizer) {
         if !isShowingEditingHandles {
             self.showEditingHandles()
-            
-            if let delegate: JLStickerLabelViewDelegate = delegate {
-                delegate.labelViewDidSelected!(self)
-            }
+
+            //labelViewDidSelected
         }
         
     }
     
     @objc func closeTap(_ recognizer: UITapGestureRecognizer) {
         self.removeFromSuperview()
-        
-        if let delegate: JLStickerLabelViewDelegate = delegate {
-            if delegate.responds(to: #selector(JLStickerLabelViewDelegate.labelViewDidClose(_:))) {
-                delegate.labelViewDidClose!(self)
-            }
-        }
+        //labelViewDidClose
     }
     
     @objc func moveGesture(_ recognizer: UIPanGestureRecognizer) {
         if !isShowingEditingHandles {
             self.showEditingHandles()
             
-            if let delegate: JLStickerLabelViewDelegate = delegate {
-                delegate.labelViewDidSelected!(self)
-            }
+   //labelViewDidSelected
         }
         
         self.touchLocation = recognizer.location(in: self.superview)
@@ -305,25 +290,17 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             self.center = self.estimatedCenter()
             beginBounds = self.bounds
             
-            if let delegate: JLStickerLabelViewDelegate = delegate {
-                delegate.labelViewDidBeginEditing!(self)
-            }
+//labelViewDidBeginEditing
             
         case .changed:
             self.center = self.estimatedCenter()
             
-            
-            if let delegate: JLStickerLabelViewDelegate = delegate {
-                delegate.labelViewDidChangeEditing!(self)
-            }
+//labelViewDidChangeEditing
             
         case .ended:
             self.center = self.estimatedCenter()
             
-            
-            if let delegate: JLStickerLabelViewDelegate = delegate {
-                delegate.labelViewDidEndEditing!(self)
-            }
+            //labelViewDidEndEditing
             
         default:break
             
@@ -343,11 +320,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             initialBounds = self.bounds
             initialDistance = CalculateFunctions.CGpointGetDistance(center, point2: touchLocation)
             
-            if let delegate: JLStickerLabelViewDelegate = delegate {
-                if delegate.responds(to: #selector(JLStickerLabelViewDelegate.labelViewDidBeginEditing(_:))) {
-                    delegate.labelViewDidBeginEditing!(self)
-                }
-            }
+            //labelViewDidBeginEditing
             
         case .changed:
             let ang = atan2(touchLocation.y - center.y, touchLocation.x - center.x)
@@ -374,18 +347,10 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
 //                    self.refresh()
                 }
             }
-            
-            if let delegate: JLStickerLabelViewDelegate = delegate {
-                if delegate.responds(to: #selector(JLStickerLabelViewDelegate.labelViewDidChangeEditing(_:))) {
-                    delegate.labelViewDidChangeEditing!(self)
-                }
-            }
+            //labelViewDidChangeEditing
+ 
         case .ended:
-            if let delegate: JLStickerLabelViewDelegate = delegate {
-                if delegate.responds(to: #selector(JLStickerLabelViewDelegate.labelViewDidEndEditing(_:))) {
-                    delegate.labelViewDidEndEditing!(self)
-                }
-            }
+            //labelViewDidEndEditing
             
             self.refresh()
             
@@ -469,12 +434,7 @@ extension JLStickerLabelView {
         labelTextView.resignFirstResponder()
         
         self.refresh()
-        
-        if let delegate : JLStickerLabelViewDelegate = delegate {
-            if delegate.responds(to: #selector(JLStickerLabelViewDelegate.labelViewDidHideEditingHandles(_:))) {
-                delegate.labelViewDidHideEditingHandles!(self)
-            }
-        }
+        //labelViewDidHideEditingHandles
     }
     
     public func showEditingHandles() {
@@ -494,11 +454,7 @@ extension JLStickerLabelView {
         
         self.refresh()
         
-        if let delegate: JLStickerLabelViewDelegate = delegate {
-            if delegate.responds(to: #selector(JLStickerLabelViewDelegate.labelViewDidShowEditingHandles(_:))) {
-                delegate.labelViewDidShowEditingHandles!(self)
-            }
-        }
+        //labelViewDidShowEditingHandles
     }
     
     internal func estimatedCenter() -> CGPoint{
@@ -522,86 +478,3 @@ extension JLStickerLabelView {
         return newCenter
     }
 }
-
-//MARK: -
-//MARK: delegate
-
-
-@objc public protocol JLStickerLabelViewDelegate: NSObjectProtocol {
-    /**
-     *  Occurs when a touch gesture event occurs on close button.
-     *
-     *  @param label    A label object informing the delegate about action.
-     */
-    @objc optional func labelViewDidClose(_ label: JLStickerLabelView) -> Void
-    /**
-     *  Occurs when border and control buttons was shown.
-     *
-     *  @param label    A label object informing the delegate about showing.
-     */
-    @objc optional func labelViewDidShowEditingHandles(_ label: JLStickerLabelView) -> Void
-    /**
-     *  Occurs when border and control buttons was hidden.
-     *
-     *  @param label    A label object informing the delegate about hiding.
-     */
-    @objc optional func labelViewDidHideEditingHandles(_ label: JLStickerLabelView) -> Void
-    /**
-     *  Occurs when label become first responder.
-     *
-     *  @param label    A label object informing the delegate about action.
-     */
-    @objc optional func labelViewDidStartEditing(_ label: JLStickerLabelView) -> Void
-    /**
-     *  Occurs when label starts move or rotate.
-     *
-     *  @param label    A label object informing the delegate about action.
-     */
-    @objc optional func labelViewDidBeginEditing(_ label: JLStickerLabelView) -> Void
-    /**
-     *  Occurs when label continues move or rotate.
-     *
-     *  @param label    A label object informing the delegate about action.
-     */
-    @objc optional func labelViewDidChangeEditing(_ label: JLStickerLabelView) -> Void
-    /**
-     *  Occurs when label ends move or rotate.
-     *
-     *  @param label    A label object informing the delegate about action.
-     */
-    @objc optional func labelViewDidEndEditing(_ label: JLStickerLabelView) -> Void
-    
-    @objc optional func labelViewDidSelected(_ label: JLStickerLabelView) -> Void
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -16,7 +16,6 @@
 		1859E6021D11679400B53CB5 /* adjustToFitFontOrWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E5FD1D11679400B53CB5 /* adjustToFitFontOrWidth.swift */; };
 		1859E6031D11679400B53CB5 /* CalcuteFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E5FE1D11679400B53CB5 /* CalcuteFunctions.swift */; };
 		1859E6041D11679400B53CB5 /* JLAttributedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E5FF1D11679400B53CB5 /* JLAttributedTextView.swift */; };
-		1859E6051D11679400B53CB5 /* JLStickerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E6001D11679400B53CB5 /* JLStickerImageView.swift */; };
 		1859E6061D11679400B53CB5 /* JLStickerLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859E6011D11679400B53CB5 /* JLStickerLabelView.swift */; };
 		C98351C5208317B800818DC0 /* label_bottom_right.png in Resources */ = {isa = PBXBuildFile; fileRef = C98351C3208317B800818DC0 /* label_bottom_right.png */; };
 		C98351C6208317B800818DC0 /* label_top_left.png in Resources */ = {isa = PBXBuildFile; fileRef = C98351C4208317B800818DC0 /* label_top_left.png */; };
@@ -47,7 +46,6 @@
 		1859E5FD1D11679400B53CB5 /* adjustToFitFontOrWidth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = adjustToFitFontOrWidth.swift; sourceTree = "<group>"; };
 		1859E5FE1D11679400B53CB5 /* CalcuteFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalcuteFunctions.swift; sourceTree = "<group>"; };
 		1859E5FF1D11679400B53CB5 /* JLAttributedTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLAttributedTextView.swift; sourceTree = "<group>"; };
-		1859E6001D11679400B53CB5 /* JLStickerImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLStickerImageView.swift; sourceTree = "<group>"; };
 		1859E6011D11679400B53CB5 /* JLStickerLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLStickerLabelView.swift; sourceTree = "<group>"; };
 		C98351C3208317B800818DC0 /* label_bottom_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = label_bottom_right.png; sourceTree = "<group>"; };
 		C98351C4208317B800818DC0 /* label_top_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = label_top_left.png; sourceTree = "<group>"; };
@@ -115,7 +113,6 @@
 				1859E5FE1D11679400B53CB5 /* CalcuteFunctions.swift */,
 				C9A84F9E207F545F0002A42D /* CG+Extension.swift */,
 				1859E5FF1D11679400B53CB5 /* JLAttributedTextView.swift */,
-				1859E6001D11679400B53CB5 /* JLStickerImageView.swift */,
 				1859E6011D11679400B53CB5 /* JLStickerLabelView.swift */,
 			);
 			name = Source;
@@ -245,7 +242,6 @@
 				1859E5DD1D11677900B53CB5 /* AppDelegate.swift in Sources */,
 				1859E6021D11679400B53CB5 /* adjustToFitFontOrWidth.swift in Sources */,
 				1859E6061D11679400B53CB5 /* JLStickerLabelView.swift in Sources */,
-				1859E6051D11679400B53CB5 /* JLStickerImageView.swift in Sources */,
 				1859E6031D11679400B53CB5 /* CalcuteFunctions.swift in Sources */,
 				C9A84F9F207F545F0002A42D /* CG+Extension.swift in Sources */,
 			);
