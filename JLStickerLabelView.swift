@@ -62,9 +62,6 @@ public class JLStickerLabelView: UIView {
         let v = UIImageView(frame: CGRect(x: self.bounds.size.width - globalInset! * 2, y: self.bounds.size.height - globalInset! * 2, width: globalInset! * 2 - 6, height: globalInset! * 2 - 6))
         v.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
         v.backgroundColor = UIColor.clear
-        v.layer.cornerRadius =  globalInset! - 10
-        v.layer.borderColor = UIColor.white.cgColor
-        v.layer.borderWidth = 3
         v.clipsToBounds = true
         v.image = UIImage(named: "label_bottom_right.png")
         v.backgroundColor = .red
@@ -76,12 +73,9 @@ public class JLStickerLabelView: UIView {
         
         let v = UIImageView(frame: CGRect(x: 0, y: 0, width: globalInset! * 2 - 6, height: globalInset! * 2 - 6))
         v.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
-        v.layer.borderColor = UIColor(red: 33, green: 45, blue: 59, alpha: 1).cgColor
-        v.layer.borderWidth = 3
         v.contentMode = .scaleAspectFill
         v.clipsToBounds = true
         v.backgroundColor = UIColor.clear
-        v.layer.cornerRadius = globalInset! - 10
         v.image = UIImage(named: "label_top_left.png")
         v.isUserInteractionEnabled = true
         return v
