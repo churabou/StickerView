@@ -14,7 +14,12 @@ extension CGAffineTransform {
     var rotateAngle: CGFloat {
         return atan2(b, a)
     }
+    
+    var scale: CGSize {
+        return CGSize(width: sqrt(a * a + c + c), height: sqrt(b * b + d * d))
+    }
 }
+
 
 extension CGPoint {
     

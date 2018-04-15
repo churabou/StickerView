@@ -99,18 +99,6 @@ public class JLStickerLabelView: UIView {
     //MARK: -
     //MARK: Set Control Buttons
     
-    public var enableClose: Bool = true {
-        didSet {
-            closeView.isHidden = enableClose
-            closeView.isUserInteractionEnabled = enableClose
-        }
-    }
-    public var enableRotate: Bool = true {
-        didSet {
-            rotateView.isHidden = enableRotate
-            rotateView.isUserInteractionEnabled = enableRotate
-        }
-    }
 
     public var showsContentShadow: Bool = false {
         didSet {
@@ -190,8 +178,6 @@ public class JLStickerLabelView: UIView {
         self.closeView.addGestureRecognizer(closeTap)
         self.rotateView.addGestureRecognizer(panRotateGesture)
         
-        self.enableClose = true
-        self.enableRotate = true
         self.showsContentShadow = true
         
         self.showEditingHandles()
@@ -317,7 +303,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
         case .began:
             deltaAngle = atan2(touchLocation.y - center.y, touchLocation.x - center.x) - transform.rotateAngle
             initialBounds = self.bounds
-            initialDistance = CalculateFunctions.CGpointGetDistance(center, point2: touchLocation)
+            initialDistance = CGPoint.distance(center, point2: touchLocation)
             
             //labelViewDidBeginEditing
             
@@ -367,7 +353,7 @@ extension JLStickerLabelView {
     internal func refresh() {
         if let superView: UIView = self.superview {
             let transform: CGAffineTransform = superView.transform
-            let scale = CalculateFunctions.CGAffineTransformGetScale(transform)
+            let scale = transform.scale
             let t = CGAffineTransform(scaleX: scale.width, y: scale.height)
             self.closeView.transform = t.inverted()
             self.rotateView.transform = t.inverted()
@@ -378,14 +364,7 @@ extension JLStickerLabelView {
         lastTouchedView = nil
         
         isShowingEditingHandles = false
-        
-        if enableClose {
-            closeView.isHidden = true
-        }
-        if enableRotate {
-            rotateView.isHidden = true
-        }
-        
+    
         labelTextView.resignFirstResponder()
         
         self.refresh()
@@ -398,14 +377,6 @@ extension JLStickerLabelView {
         isShowingEditingHandles = true
         
         lastTouchedView = self
-        
-        if enableClose {
-            closeView.isHidden = false
-        }
-        
-        if enableRotate {
-            rotateView.isHidden = false
-        }
         
         self.refresh()
         
