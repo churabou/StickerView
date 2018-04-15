@@ -56,7 +56,10 @@ public class JLStickerLabelView: UIView {
     public var border: CAShapeLayer?
     public var labelTextView: JLAttributedTextView!
     public lazy var rotateView: UIImageView = {
-        let v = UIImageView(frame: CGRect(x: self.bounds.size.width - globalInset! * 2, y: self.bounds.size.height - globalInset! * 2, width: globalInset! * 2 - 6, height: globalInset! * 2 - 6))
+        let v = UIImageView(frame: CGRect(x: self.bounds.size.width - globalInset! * 2,
+                                          y: self.bounds.size.height - globalInset! * 2,
+                                          width: globalInset! * 2 - 6,
+                                          height: globalInset! * 2 - 6))
         v.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
         v.backgroundColor = UIColor.clear
         v.clipsToBounds = true
@@ -102,11 +105,7 @@ public class JLStickerLabelView: UIView {
             rotateView.isUserInteractionEnabled = enableRotate
         }
     }
-    public var enableMoveRestriction: Bool = true {
-        didSet {
-            
-        }
-    }
+
     public var showsContentShadow: Bool = false {
         didSet {
             if showsContentShadow {
@@ -121,18 +120,6 @@ public class JLStickerLabelView: UIView {
                 self.layer.shadowRadius = 0.0
             }
         }
-    }
-    
-    //MARK: -
-    //MARK: didMoveToSuperView
-    
-    override public func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        if self.superview != nil {
-            self.showEditingHandles()
-            self.refresh()
-        }
-        
     }
     
     //MARK: -
@@ -167,12 +154,6 @@ public class JLStickerLabelView: UIView {
         
     }
     
-    public override func layoutSubviews() {
-        if ((labelTextView) != nil) {
-            border?.path = UIBezierPath(rect: labelTextView.bounds).cgPath
-            border?.frame = labelTextView.bounds
-        }
-    }
     
     func setup(defaultText: String?) {
         self.globalInset = 19
@@ -190,7 +171,11 @@ public class JLStickerLabelView: UIView {
         
         self.insertSubview(labelTextView!, at: 0)
         
-        self.setupCloseAndRotateView()
+        //setupCloseAndRotateView()
+        
+        self.addSubview(closeView)
+        self.addSubview(rotateView)
+        
         
         self.addGestureRecognizer(moveGestureRecognizer)
         self.addGestureRecognizer(singleTapShowHide)
@@ -199,7 +184,6 @@ public class JLStickerLabelView: UIView {
         self.closeView.addGestureRecognizer(closeTap)
         self.rotateView.addGestureRecognizer(panRotateGesture)
         
-        self.enableMoveRestriction = false
         self.enableClose = true
         self.enableRotate = true
         self.showsContentShadow = true
@@ -208,6 +192,26 @@ public class JLStickerLabelView: UIView {
         self.labelTextView?.becomeFirstResponder()
         
     }
+    
+    //MARK: -
+    //MARK: didMoveToSuperView
+    
+    override public func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        if self.superview != nil {
+            self.showEditingHandles()
+            self.refresh()
+        }
+        
+    }
+    
+    public override func layoutSubviews() {
+        if ((labelTextView) != nil) {
+            border?.path = UIBezierPath(rect: labelTextView.bounds).cgPath
+            border?.frame = labelTextView.bounds
+        }
+    }
+
     
 }
 
@@ -384,14 +388,6 @@ extension JLStickerLabelView {
         border?.lineWidth = 8
         
     }
-    
-    func setupCloseAndRotateView() {
-        
-        self.addSubview(closeView)
-        
-        
-        self.addSubview(rotateView)
-    }
 }
 
 
@@ -460,19 +456,8 @@ extension JLStickerLabelView {
         var newCenterX = beginningCenter!.x + (touchLocation.x - beginningPoint!.x)
         var newCenterY = beginningCenter!.y + (touchLocation.y - beginningPoint!.y)
         
-        if (enableMoveRestriction) {
-            if (!(newCenterX - 0.5 * self.frame.width > 0 &&
-                newCenterX + 0.5 * self.frame.width < self.superview!.bounds.width)) {
-                newCenterX = self.center.x;
-            }
-            if (!(newCenterY - 0.5 * self.frame.height > 0 &&
-                newCenterY + 0.5 * self.frame.height < self.superview!.bounds.height)) {
-                newCenterY = self.center.y;
-            }
-            newCenter = CGPoint(x: newCenterX, y: newCenterY)
-        }else {
-            newCenter = CGPoint(x: newCenterX, y: newCenterY)
-        }
+        newCenter = CGPoint(x: newCenterX, y: newCenterY)
+        
         return newCenter
     }
 }
