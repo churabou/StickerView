@@ -53,7 +53,6 @@ public class JLStickerLabelView: UIView {
     internal var deltaAngle: CGFloat?
     internal var beginBounds: CGRect?
     
-    public var border: CAShapeLayer?
     public var labelTextView: JLAttributedTextView!
     public lazy var rotateView: UIImageView = {
         let v = UIImageView(frame: CGRect(x: self.bounds.size.width - globalInset! * 2,
@@ -82,13 +81,6 @@ public class JLStickerLabelView: UIView {
     }()
     
     internal var isShowingEditingHandles = true
-    
-    public var borderColor: UIColor? {
-        didSet {
-            border?.strokeColor = borderColor?.cgColor
-        }
-    }
-    
     
     //MARK: -
     //MARK: Set Control Buttons
@@ -160,14 +152,13 @@ public class JLStickerLabelView: UIView {
         
         self.backgroundColor = UIColor.green
         self.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        self.border?.strokeColor = UIColor(red: 33, green: 45, blue: 59, alpha: 1).cgColor
         
         if let defaultText = defaultText {
             self.setupLabelTextView(defaultText: defaultText)
         } else {
             self.setupLabelTextView()
         }
-        self.setupBorder()
+
         
         self.insertSubview(labelTextView!, at: 0)
         
@@ -204,15 +195,6 @@ public class JLStickerLabelView: UIView {
         }
         
     }
-    
-    public override func layoutSubviews() {
-        if ((labelTextView) != nil) {
-            border?.path = UIBezierPath(rect: labelTextView.bounds).cgPath
-            border?.frame = labelTextView.bounds
-        }
-    }
-
-    
 }
 
 //MARK: -
@@ -379,15 +361,6 @@ extension JLStickerLabelView {
         labelTextView?.text = defaultText
         
     }
-    
-    func setupBorder() {
-        border = CAShapeLayer(layer: layer)
-        border?.strokeColor = borderColor?.cgColor
-        border?.fillColor = nil
-        border?.lineDashPattern = [10, 2]
-        border?.lineWidth = 8
-        
-    }
 }
 
 
@@ -402,14 +375,6 @@ extension JLStickerLabelView {
             let t = CGAffineTransform(scaleX: scale.width, y: scale.height)
             self.closeView.transform = t.inverted()
             self.rotateView.transform = t.inverted()
-            
-            if (isShowingEditingHandles) {
-                if let border: CALayer = border {
-                    self.labelTextView?.layer.addSublayer(border)
-                }
-            }else {
-                border?.removeFromSuperlayer()
-            }
         }
     }
     

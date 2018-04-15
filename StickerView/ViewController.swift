@@ -23,7 +23,6 @@ class ViewController: UIViewController, adjustFontSizeToFillRectProtocol {
         
         labelView.showsContentShadow = false
         //labelView.enableMoveRestriction = false
-        labelView.borderColor = UIColor.red
         labelView.labelTextView.fontName = "Baskerville-BoldItalic"
         view.addSubview(labelView)
      
