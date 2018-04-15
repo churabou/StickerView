@@ -58,7 +58,20 @@ public class JLStickerLabelView: UIView {
     
     public var border: CAShapeLayer?
     public var labelTextView: JLAttributedTextView!
-    public var rotateView: UIImageView?
+    public lazy var rotateView: UIImageView = {
+        let v = UIImageView(frame: CGRect(x: self.bounds.size.width - globalInset! * 2, y: self.bounds.size.height - globalInset! * 2, width: globalInset! * 2 - 6, height: globalInset! * 2 - 6))
+        v.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
+        v.backgroundColor = UIColor.clear
+        v.layer.cornerRadius =  globalInset! - 10
+        v.layer.borderColor = UIColor.white.cgColor
+        v.layer.borderWidth = 3
+        v.clipsToBounds = true
+        //self.rotateImage = UIImage(named: "rotate-option")
+        v.backgroundColor = .red
+        v.contentMode = .scaleAspectFit
+        v.isUserInteractionEnabled = true
+        return v
+    }()
     public var closeView: UIImageView?
     
     internal var isShowingEditingHandles = true
@@ -81,8 +94,8 @@ public class JLStickerLabelView: UIView {
     }
     public var enableRotate: Bool = true {
         didSet {
-            rotateView?.isHidden = enableRotate
-            rotateView?.isUserInteractionEnabled = enableRotate
+            rotateView.isHidden = enableRotate
+            rotateView.isUserInteractionEnabled = enableRotate
         }
     }
     public var enableMoveRestriction: Bool = true {
@@ -180,7 +193,7 @@ public class JLStickerLabelView: UIView {
         self.moveGestureRecognizer.require(toFail: closeTap)
         
         self.closeView!.addGestureRecognizer(closeTap)
-        self.rotateView!.addGestureRecognizer(panRotateGesture)
+        self.rotateView.addGestureRecognizer(panRotateGesture)
         
         self.enableMoveRestriction = false
         self.enableClose = true
@@ -415,18 +428,8 @@ extension JLStickerLabelView {
         closeView?.isUserInteractionEnabled = true
         self.addSubview(closeView!)
         
-        rotateView = UIImageView(frame: CGRect(x: self.bounds.size.width - globalInset! * 2, y: self.bounds.size.height - globalInset! * 2, width: globalInset! * 2 - 6, height: globalInset! * 2 - 6))
-        rotateView?.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
-        rotateView?.backgroundColor = UIColor.clear
-        rotateView?.layer.cornerRadius =  globalInset! - 10
-        rotateView?.layer.borderColor = UIColor.white.cgColor
-        rotateView?.layer.borderWidth = 3
-        rotateView?.clipsToBounds = true
-        //self.rotateImage = UIImage(named: "rotate-option")
-        rotateView?.backgroundColor = .blue
-        rotateView?.contentMode = .scaleAspectFit
-        rotateView?.isUserInteractionEnabled = true
-        self.addSubview(rotateView!)
+
+        self.addSubview(rotateView)
     }
 }
 
@@ -441,7 +444,7 @@ extension JLStickerLabelView {
             let scale = CalculateFunctions.CGAffineTransformGetScale(transform)
             let t = CGAffineTransform(scaleX: scale.width, y: scale.height)
             self.closeView?.transform = t.inverted()
-            self.rotateView?.transform = t.inverted()
+            self.rotateView.transform = t.inverted()
 
             if (isShowingEditingHandles) {
                 if let border: CALayer = border {
@@ -462,7 +465,7 @@ extension JLStickerLabelView {
             closeView?.isHidden = true
         }
         if enableRotate {
-            rotateView?.isHidden = true
+            rotateView.isHidden = true
         }
         
         labelTextView.resignFirstResponder()
@@ -488,7 +491,7 @@ extension JLStickerLabelView {
         }
         
         if enableRotate {
-            rotateView?.isHidden = false
+            rotateView.isHidden = false
         }
         
         self.refresh()
