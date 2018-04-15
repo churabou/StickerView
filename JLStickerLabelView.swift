@@ -40,8 +40,6 @@ public class JLStickerLabelView: UIView {
     //MARK: properties
     
     internal var lastTouchedView: JLStickerLabelView?
-    
-    
     internal var globalInset: CGFloat?
     
     internal var initialBounds: CGRect = .zero
@@ -262,7 +260,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
     @objc func contentTapped(_ recognizer: UITapGestureRecognizer) {
         if !isShowingEditingHandles {
             self.showEditingHandles()
-
+            
             //labelViewDidSelected
         }
         
@@ -277,7 +275,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
         if !isShowingEditingHandles {
             self.showEditingHandles()
             
-   //labelViewDidSelected
+            //labelViewDidSelected
         }
         
         self.touchLocation = recognizer.location(in: self.superview)
@@ -290,12 +288,12 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             self.center = self.estimatedCenter()
             beginBounds = self.bounds
             
-//labelViewDidBeginEditing
+            //labelViewDidBeginEditing
             
         case .changed:
             self.center = self.estimatedCenter()
             
-//labelViewDidChangeEditing
+            //labelViewDidChangeEditing
             
         case .ended:
             self.center = self.estimatedCenter()
@@ -332,7 +330,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             //Finding scale between current touchPoint and previous touchPoint
             let scale = sqrtf(Float(CGPoint.distance(center, point2: touchLocation) / initialDistance))
             
-
+            
             var scaleRect = initialBounds
             scaleRect.size = initialBounds.size.scaleBy(x: CGFloat(scale), y: CGFloat(scale))
             
@@ -344,11 +342,11 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
                     self.adjustFontSizeToFillRect(scaleRect, labelView: labelTextView)
                     self.bounds = scaleRect
                     self.adjustsWidthToFillItsContens(self, labelView: labelTextView)
-//                    self.refresh()
+                    //                    self.refresh()
                 }
             }
             //labelViewDidChangeEditing
- 
+            
         case .ended:
             //labelViewDidEndEditing
             
@@ -388,10 +386,10 @@ extension JLStickerLabelView {
     }
     
     func setupCloseAndRotateView() {
-
+        
         self.addSubview(closeView)
         
-
+        
         self.addSubview(rotateView)
     }
 }
@@ -408,7 +406,7 @@ extension JLStickerLabelView {
             let t = CGAffineTransform(scaleX: scale.width, y: scale.height)
             self.closeView.transform = t.inverted()
             self.rotateView.transform = t.inverted()
-
+            
             if (isShowingEditingHandles) {
                 if let border: CALayer = border {
                     self.labelTextView?.layer.addSublayer(border)
@@ -418,7 +416,7 @@ extension JLStickerLabelView {
             }
         }
     }
-
+    
     public func hideEditingHandlers() {
         lastTouchedView = nil
         
