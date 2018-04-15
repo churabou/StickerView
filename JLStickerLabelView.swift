@@ -148,6 +148,11 @@ public class JLStickerLabelView: UIView {
     
     
     func setup(defaultText: String?) {
+        
+        
+        layer.borderColor = UIColor.red.cgColor
+        layer.borderWidth = 2
+
         self.globalInset = 19
         
         self.backgroundColor = UIColor.green
@@ -349,6 +354,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
 //MARK: setup
 extension JLStickerLabelView {
     func setupLabelTextView(defaultText: String = "Tap to edit") {
+
         labelTextView = JLAttributedTextView(frame: self.bounds.insetBy(dx: globalInset!, dy: globalInset!))
         labelTextView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         labelTextView?.clipsToBounds = true
@@ -359,7 +365,8 @@ extension JLStickerLabelView {
         labelTextView.isSelectable = true
         labelTextView.textContainerInset = UIEdgeInsetsMake(0, 0, 0, 0)
         labelTextView?.text = defaultText
-        
+        labelTextView?.layer.borderWidth = 2
+        labelTextView?.layer.borderColor = UIColor.orange.cgColor
     }
 }
 
