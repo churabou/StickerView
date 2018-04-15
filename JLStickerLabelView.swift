@@ -66,13 +66,26 @@ public class JLStickerLabelView: UIView {
         v.layer.borderColor = UIColor.white.cgColor
         v.layer.borderWidth = 3
         v.clipsToBounds = true
-        //self.rotateImage = UIImage(named: "rotate-option")
+        v.image = UIImage(named: "label_bottom_right.png")
         v.backgroundColor = .red
         v.contentMode = .scaleAspectFit
         v.isUserInteractionEnabled = true
         return v
     }()
-    public var closeView: UIImageView?
+    public lazy var closeView: UIImageView = {
+        
+        let v = UIImageView(frame: CGRect(x: 0, y: 0, width: globalInset! * 2 - 6, height: globalInset! * 2 - 6))
+        v.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
+        v.layer.borderColor = UIColor(red: 33, green: 45, blue: 59, alpha: 1).cgColor
+        v.layer.borderWidth = 3
+        v.contentMode = .scaleAspectFill
+        v.clipsToBounds = true
+        v.backgroundColor = UIColor.clear
+        v.layer.cornerRadius = globalInset! - 10
+        v.image = UIImage(named: "label_top_left.png")
+        v.isUserInteractionEnabled = true
+        return v
+    }()
     
     internal var isShowingEditingHandles = true
     
@@ -88,8 +101,8 @@ public class JLStickerLabelView: UIView {
     
     public var enableClose: Bool = true {
         didSet {
-            closeView?.isHidden = enableClose
-            closeView?.isUserInteractionEnabled = enableClose
+            closeView.isHidden = enableClose
+            closeView.isUserInteractionEnabled = enableClose
         }
     }
     public var enableRotate: Bool = true {
@@ -192,7 +205,7 @@ public class JLStickerLabelView: UIView {
         self.addGestureRecognizer(singleTapShowHide)
         self.moveGestureRecognizer.require(toFail: closeTap)
         
-        self.closeView!.addGestureRecognizer(closeTap)
+        self.closeView.addGestureRecognizer(closeTap)
         self.rotateView.addGestureRecognizer(panRotateGesture)
         
         self.enableMoveRestriction = false
@@ -416,17 +429,8 @@ extension JLStickerLabelView {
     }
     
     func setupCloseAndRotateView() {
-        closeView = UIImageView(frame: CGRect(x: 0, y: 0, width: globalInset! * 2 - 6, height: globalInset! * 2 - 6))
-        closeView?.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
-        closeView!.layer.borderColor = UIColor(red: 33, green: 45, blue: 59, alpha: 1).cgColor
-        closeView!.layer.borderWidth = 3
-        closeView?.contentMode = .scaleAspectFill
-        closeView?.clipsToBounds = true
-        closeView?.backgroundColor = UIColor.clear
-        closeView?.layer.cornerRadius = globalInset! - 10
-        closeView?.image = UIImage(named: "cancel")
-        closeView?.isUserInteractionEnabled = true
-        self.addSubview(closeView!)
+
+        self.addSubview(closeView)
         
 
         self.addSubview(rotateView)
@@ -443,7 +447,7 @@ extension JLStickerLabelView {
             let transform: CGAffineTransform = superView.transform
             let scale = CalculateFunctions.CGAffineTransformGetScale(transform)
             let t = CGAffineTransform(scaleX: scale.width, y: scale.height)
-            self.closeView?.transform = t.inverted()
+            self.closeView.transform = t.inverted()
             self.rotateView.transform = t.inverted()
 
             if (isShowingEditingHandles) {
@@ -462,7 +466,7 @@ extension JLStickerLabelView {
         isShowingEditingHandles = false
         
         if enableClose {
-            closeView?.isHidden = true
+            closeView.isHidden = true
         }
         if enableRotate {
             rotateView.isHidden = true
@@ -487,7 +491,7 @@ extension JLStickerLabelView {
         lastTouchedView = self
         
         if enableClose {
-            closeView?.isHidden = false
+            closeView.isHidden = false
         }
         
         if enableRotate {
