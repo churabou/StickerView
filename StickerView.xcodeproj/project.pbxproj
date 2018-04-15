@@ -20,7 +20,6 @@
 		C98351C6208317B800818DC0 /* label_top_left.png in Resources */ = {isa = PBXBuildFile; fileRef = C98351C4208317B800818DC0 /* label_top_left.png */; };
 		C98351C72083190000818DC0 /* label_bottom_right.png in Resources */ = {isa = PBXBuildFile; fileRef = C98351C3208317B800818DC0 /* label_bottom_right.png */; };
 		C98351C82083190100818DC0 /* label_top_left.png in Resources */ = {isa = PBXBuildFile; fileRef = C98351C4208317B800818DC0 /* label_top_left.png */; };
-		C98351CA2083232400818DC0 /* CalcuteFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98351C92083232400818DC0 /* CalcuteFunctions.swift */; };
 		C9A84F9F207F545F0002A42D /* CG+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A84F9E207F545F0002A42D /* CG+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +47,6 @@
 		1859E6011D11679400B53CB5 /* JLStickerLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JLStickerLabelView.swift; sourceTree = "<group>"; };
 		C98351C3208317B800818DC0 /* label_bottom_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = label_bottom_right.png; sourceTree = "<group>"; };
 		C98351C4208317B800818DC0 /* label_top_left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = label_top_left.png; sourceTree = "<group>"; };
-		C98351C92083232400818DC0 /* CalcuteFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalcuteFunctions.swift; sourceTree = "<group>"; };
 		C9A84F9E207F545F0002A42D /* CG+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CG+Extension.swift"; sourceTree = "<group>"; };
 		EB0888691F3F5FA800C6C637 /* StickerView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StickerView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB08886A1F3F5FA800C6C637 /* StickerViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StickerViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,7 +110,6 @@
 				1859E5FD1D11679400B53CB5 /* adjustToFitFontOrWidth.swift */,
 				C9A84F9E207F545F0002A42D /* CG+Extension.swift */,
 				1859E5FF1D11679400B53CB5 /* JLAttributedTextView.swift */,
-				C98351C92083232400818DC0 /* CalcuteFunctions.swift */,
 				1859E6011D11679400B53CB5 /* JLStickerLabelView.swift */,
 			);
 			name = Source;
@@ -251,7 +248,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1859E5F21D11677A00B53CB5 /* StickerViewTests.swift in Sources */,
-				C98351CA2083232400818DC0 /* CalcuteFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
